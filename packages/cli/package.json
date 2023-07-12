@@ -1,6 +1,7 @@
 {
   "name": "@wesvg/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "private": false,
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +14,7 @@
     "/oclif.manifest.json"
   ],
   "scripts": {
-    "build": "rimraf dist && tsc -b",
+    "build": "rimraf dist && tsc -b && cp -R ./src/templates ./dist/templates",
     "prepack": "npm run build && oclif manifest && oclif readme",
     "postpack": "rimraf oclif.manifest.json",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
@@ -34,6 +35,10 @@
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "oclif": "^3.9.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "oclif": {
     "bin": "wesvg",
