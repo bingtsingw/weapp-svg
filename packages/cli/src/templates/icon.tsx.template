@@ -1,0 +1,24 @@
+/* eslint-disable */
+// organize-imports-ignore
+// prettier-ignore
+import { View } from '@tarojs/components';
+// prettier-ignore
+import { FC } from 'react';
+// prettier-ignore
+import { useColor, useSize } from '../hooks';
+// prettier-ignore
+import { IconProps } from '../types';
+
+// prettier-ignore
+const quote = '"';
+
+// prettier-ignore
+export const #componentName#: FC<IconProps> = (props) => {
+  const { size = #size#, color, style = {}, className = '' } = props;
+  const { colors, isStr } = useColor(color);
+  const { svgSize } = useSize(size);
+
+  return (
+    <View style={{backgroundImage: `url(#svg#)`, width: `${svgSize}px`, height: `${svgSize}px`, ...style}} className={className} />
+  );
+};
