@@ -15,8 +15,7 @@
     ]
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,html,css,md,json}": "prettier --check",
-    "**/*.{js,jsx,ts,tsx}": "eslint"
+    "**/*.{js,jsx,ts,tsx,html,css,md,json}": "prettier --check"
   },
   "config": {
     "commitizen": {
@@ -33,6 +32,17 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
+  "eslintConfig": {
+    "extends": [
+      "alloy",
+      "alloy/typescript"
+    ]
+  },
+  "eslintIgnore": [
+    "dist",
+    "build",
+    "out"
+  ],
   "devDependencies": {
     "@babel/core": "^7.22.8",
     "@babel/eslint-parser": "^7.22.7",
@@ -48,8 +58,6 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.44.0",
     "eslint-config-alloy": "^5.0.0",
-    "eslint-config-oclif": "^4.0.0",
-    "eslint-config-oclif-typescript": "^1.0.3",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "mrm": "^4.1.17",

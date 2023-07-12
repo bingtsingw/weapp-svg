@@ -18,19 +18,6 @@
     "postpack": "rimraf oclif.manifest.json",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
   },
-  "eslintConfig": {
-    "extends": [
-      "oclif",
-      "oclif-typescript",
-      "alloy",
-      "alloy/typescript"
-    ]
-  },
-  "eslintIgnore": [
-    "dist",
-    "build",
-    "out"
-  ],
   "dependencies": {
     "@oclif/core": "^2.8.11",
     "@oclif/plugin-help": "^5.2.11",
