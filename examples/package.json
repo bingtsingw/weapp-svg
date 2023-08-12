@@ -1,4 +1,7 @@
 {
   "name": "examples",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@wesvg/cli": "link:../packages/cli"
+  }
 }

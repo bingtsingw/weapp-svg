@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      '@wesvg/cli':
+        specifier: link:../packages/cli
+        version: link:../packages/cli
 
   taro3-react:
     dependencies:
