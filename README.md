@@ -53,7 +53,49 @@ ni @wesvg/cli -D
 wesvg generate
 ```
 
+## 示例
+
+查看[examples](examples)目录寻找相关项目示例.
+
+## 使用
+
+### Step1
+
+生成配置:
+
+```shell
+npx wesvg init
+```
+
+此时项目根目录会生成一个`wesvg.json`的文件，内容如下：
+
+```shell
+{
+  "inputs": "",
+  "output": "",
+  "iconTrimPrefix": "",
+  "iconSize": "",
+  "iconComponentPrefix": ""
+}
+```
+
+可以查看[demo](examples/taro3-react/wesvg.json)了解各个配置的用法.
+
+### Step2
+
+生成组件:
+
+```shell
+npx wesvg generate
+
+```
+
+`wesvg generate`也可以传入`wesvg.json`中的配置, 并且命令行配置会覆盖`wesvg.json`中的配置, 例如:
+
+```shell
+npx wesvg generate --inputs ./iconfont --output ./src/components/icons --icon-trim-prefix icon --icon-size 16
+```
+
 ## TODO
 
 1. 使用svgo优化图标
-1. 增加文档

@@ -1,6 +1,7 @@
 {
   "name": "weapp-svg",
   "scripts": {
+    "build": "turbo run build",
     "commit": "cz",
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
