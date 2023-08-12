@@ -29,6 +29,43 @@
     "Android >= 4.1",
     "ios >= 8"
   ],
+  "eslintConfig": {
+    "extends": [
+      "taro",
+      "taro/react",
+      "alloy",
+      "alloy/react",
+      "alloy/typescript"
+    ],
+    "rules": {
+      "jsx-quotes": [
+        "error",
+        "prefer-double"
+      ]
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.config.js"
+        ],
+        "rules": {
+          "@typescript-eslint/no-require-imports": "off",
+          "import/no-commonjs": "off"
+        }
+      }
+    ],
+    "globals": {
+      "JSX": true,
+      "__wxConfig": true,
+      "defineAppConfig": true,
+      "definePageConfig": true
+    }
+  },
+  "eslintIgnore": [
+    "dist",
+    "build",
+    "out"
+  ],
   "dependencies": {
     "@babel/runtime": "^7.22.10",
     "@tarojs/components": "3.6.11",

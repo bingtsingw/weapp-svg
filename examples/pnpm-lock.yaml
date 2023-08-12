@@ -11,6 +11,10 @@ importers:
       '@wesvg/cli':
         specifier: link:../packages/cli
         version: link:../packages/cli
+    devDependencies:
+      eslint-config-alloy:
+        specifier: ^5.1.1
+        version: 5.1.1(eslint@8.47.0)
 
   taro3-react:
     dependencies:
@@ -5831,6 +5835,39 @@ packages:
       esutils: 2.0.3
     optionalDependencies:
       source-map: 0.6.1
+    dev: true
+
+  /eslint-config-alloy@5.1.1(eslint@8.47.0):
+    resolution: {integrity: sha512-sP6Z6K0rhgdv89kgcU8jhSvirOE+CtjQMOu+0U2rMztVSkU6inWF5AfjYaIHbxWougWpFzKUVEWTRyRSfyic0g==}
+    peerDependencies:
+      '@babel/eslint-parser': 7.x
+      '@babel/preset-react': 7.x
+      '@typescript-eslint/eslint-plugin': '>=5.55.0'
+      '@typescript-eslint/parser': '>=5.0.0'
+      eslint: '>=8.24.0'
+      eslint-plugin-react: '>=7.31.8'
+      eslint-plugin-vue: '>=9.5.1'
+      typescript: 5.x
+      vue-eslint-parser: 9.x
+    peerDependenciesMeta:
+      '@babel/eslint-parser':
+        optional: true
+      '@babel/preset-react':
+        optional: true
+      '@typescript-eslint/eslint-plugin':
+        optional: true
+      '@typescript-eslint/parser':
+        optional: true
+      eslint-plugin-react:
+        optional: true
+      eslint-plugin-vue:
+        optional: true
+      typescript:
+        optional: true
+      vue-eslint-parser:
+        optional: true
+    dependencies:
+      eslint: 8.47.0
     dev: true
 
   /eslint-config-taro@3.6.11(@babel/core@7.22.10)(eslint@8.47.0)(typescript@5.1.6):

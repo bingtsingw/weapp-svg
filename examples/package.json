@@ -3,5 +3,8 @@
   "private": true,
   "dependencies": {
     "@wesvg/cli": "link:../packages/cli"
+  },
+  "devDependencies": {
+    "eslint-config-alloy": "^5.1.1"
   }
 }
