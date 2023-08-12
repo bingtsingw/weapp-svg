@@ -35,7 +35,7 @@ export class Configure {
         throw new Error('config file not found');
       }
     } else {
-      const configFile = resolve(process.cwd(), 'iconfont.json');
+      const configFile = resolve(process.cwd(), DEFAULTS.configPath);
       // 当默认的configPath不存在时, 静默处理, 不报错
       if (existsSync(configFile)) {
         config = require(configFile);
