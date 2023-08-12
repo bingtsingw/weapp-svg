@@ -1,5 +1,5 @@
 {
-  "inputs": "//at.alicdn.com/t/c/font_4208040_4jq6usxw7vj.js",
+  "inputs": ["//at.alicdn.com/t/c/font_4208040_4jq6usxw7vj.js", "./src/assets/svg"],
   "output": "src/components/icons",
   "iconTrimPrefix": "icon",
   "iconSize": "24",
