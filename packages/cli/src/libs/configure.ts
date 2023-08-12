@@ -1,6 +1,6 @@
 import { existsSync } from 'fs';
 import { readJSONSync } from 'fs-extra';
-import { isArray, isNil, kebabCase, omitBy } from 'lodash';
+import { find, isArray, isNil, kebabCase, omitBy } from 'lodash';
 import { resolve } from 'path';
 import { ZodError, z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
@@ -19,8 +19,8 @@ export type Config = z.infer<typeof schema>;
 
 export class Configure {
   private static config: Config;
-  private static svgSymbols: SvgSymbol[];
-  private static icons: { name: string; data: SvgSymbol }[];
+  private static svgSymbols: SvgSymbol[] = [];
+  private static icons: { name: string; data: SvgSymbol }[] = [];
 
   public static async init(configFlag: Partial<Config>, configPath?: string) {
     let config = {};
@@ -92,17 +92,23 @@ export class Configure {
 
     // calculate svgData
     for (const input of inputs) {
-      this.svgSymbols = await svgSymbolify(input);
+      this.svgSymbols = [...this.svgSymbols, ...(await svgSymbolify(input))];
     }
 
     // calculate iconNames
     const symbols = this.getSvgSymbols();
-    this.icons = symbols.map((item) => {
-      const name = item.$.id;
-      return {
+    for (const symbol of symbols) {
+      const name = symbol.$.id;
+
+      if (find(this.icons, { name })) {
+        console.warn(`duplicate icon: ${name}`);
+        continue;
+      }
+
+      this.icons.push({
         name: kebabCase(name.replace(new RegExp(`^${this.config.iconTrimPrefix ?? ''}-`), '')),
-        data: item,
-      };
-    });
+        data: symbol,
+      });
+    }
   }
 }

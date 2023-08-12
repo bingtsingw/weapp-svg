@@ -55,6 +55,5 @@ wesvg generate
 
 ## TODO
 
-1. 支持本地svg文件
 1. 使用svgo优化图标
 1. 增加文档
