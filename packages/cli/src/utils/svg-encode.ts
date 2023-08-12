@@ -1,6 +1,5 @@
-import { XmlData } from 'iconfont-parser';
-import { SVGXmlItem } from '../interfaces';
 import { hexToRgb } from './hex-to-rgb';
+import { SvgSymbol } from './svg-symbolify';
 
 const ATTRIBUTE_FILL_MAP = ['path'];
 const COLOR_ATTRIBUTE = ['fill', 'stroke', 'stop-color'];
@@ -9,7 +8,7 @@ const SINGLE_TAG = ['circle', 'ellipse', 'line', 'path', 'polygon', 'polyline', 
 
 const addAttribute = (
   domName: string,
-  sub: XmlData['svg']['symbol'][number]['path'][number],
+  sub: SvgSymbol['path'][number],
   counter: { colorIndex: number },
   config?: { hexToRgb: boolean },
   // eslint-disable-next-line max-params
@@ -56,7 +55,7 @@ const addAttribute = (
   return template;
 };
 
-const generateXML = (data: SVGXmlItem, config?: { hexToRgb: boolean }) => {
+const generateXML = (data: SvgSymbol, config?: { hexToRgb: boolean }) => {
   let template = '';
 
   for (const domName of Object.keys(data)) {
@@ -93,7 +92,7 @@ const generateXML = (data: SVGXmlItem, config?: { hexToRgb: boolean }) => {
   return template;
 };
 
-export const svgEncode = (data: SVGXmlItem, config?: { hexToRgb: boolean }) => {
+export const svgEncode = (data: SvgSymbol, config?: { hexToRgb: boolean }) => {
   let template = `$\{quote}data:image/svg+xml, <svg viewBox='${data.$.viewBox}' xmlns='http://www.w3.org/2000/svg' width='$\{svgSize}px' height='$\{svgSize}px'>#content#</svg>$\{quote}`;
 
   return template

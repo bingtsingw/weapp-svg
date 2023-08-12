@@ -1,15 +1,14 @@
 import { existsSync } from 'fs';
 import { readJSONSync } from 'fs-extra';
-import { XmlData, fetchXml } from 'iconfont-parser';
-import { isNil, kebabCase, omitBy } from 'lodash';
+import { isArray, isNil, kebabCase, omitBy } from 'lodash';
 import { resolve } from 'path';
 import { ZodError, z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { DEFAULTS } from '../constants';
-import { SVGXmlItem } from '../interfaces';
+import { SvgSymbol, svgSymbolify } from '../utils';
 
 const schema = z.object({
-  inputs: z.union([z.string().optional(), z.string().array().optional()]),
+  inputs: z.string().array(),
   output: z.string(),
   iconTrimPrefix: z.string().optional(),
   iconSize: z.number().default(DEFAULTS.iconSize),
@@ -20,8 +19,8 @@ export type Config = z.infer<typeof schema>;
 
 export class Configure {
   private static config: Config;
-  private static remoteSvgData: XmlData;
-  private static icons: { name: string; data: SVGXmlItem }[];
+  private static svgSymbols: SvgSymbol[];
+  private static icons: { name: string; data: SvgSymbol }[];
 
   public static async init(configFlag: Partial<Config>, configPath?: string) {
     let config = {};
@@ -44,9 +43,12 @@ export class Configure {
     }
 
     try {
+      const _config = { ...omitBy(config, isNil), ...omitBy(configFlag, isNil) };
+      const _inputs = _config.inputs;
+
       this.config = schema.parse({
-        ...config,
-        ...omitBy(configFlag, isNil),
+        ..._config,
+        inputs: isArray(_inputs) ? _inputs : [_inputs],
       });
     } catch (err) {
       throw fromZodError(err as ZodError, { prefix: 'config validation error' });
@@ -59,8 +61,8 @@ export class Configure {
     return this.config;
   }
 
-  public static getSvgData() {
-    return this.remoteSvgData;
+  public static getSvgSymbols() {
+    return this.svgSymbols;
   }
 
   public static getIcons() {
@@ -75,16 +77,27 @@ export class Configure {
     }
     this.config.output = resolve(process.cwd(), this.config.output);
 
-    // calculate remoteSvgData
-    try {
-      this.remoteSvgData = await fetchXml(`http:${this.config.inputs}`);
-    } catch (error) {
-      throw new Error('remote svg url is invalid');
+    // normalize inputs
+    const inputs = this.config.inputs.map((input) => {
+      if (input.startsWith('//')) {
+        return `http:${input}`;
+      }
+
+      if (input.startsWith('.')) {
+        return resolve(process.cwd(), input);
+      }
+
+      return input;
+    });
+
+    // calculate svgData
+    for (const input of inputs) {
+      this.svgSymbols = await svgSymbolify(input);
     }
 
     // calculate iconNames
-    const svgData = this.getSvgData();
-    this.icons = svgData.svg.symbol.map((item) => {
+    const symbols = this.getSvgSymbols();
+    this.icons = symbols.map((item) => {
       const name = item.$.id;
       return {
         name: kebabCase(name.replace(new RegExp(`^${this.config.iconTrimPrefix ?? ''}-`), '')),
