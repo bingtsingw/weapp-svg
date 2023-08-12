@@ -21,9 +21,10 @@ export default class Generate extends Command {
       required: false,
     }),
 
-    'svg-remote': Flags.string({
-      char: 'r',
-      description: 'svg remote url',
+    inputs: Flags.string({
+      char: 'i',
+      description: 'can be local or remote path',
+      multiple: true,
       required: false,
     }),
 
@@ -45,8 +46,8 @@ export default class Generate extends Command {
     const { flags } = await this.parse(Generate);
     await Configure.init(
       {
+        inputs: flags.inputs,
         output: flags.output,
-        svgRemote: flags['svg-remote'],
         iconTrimPrefix: flags['icon-trim-prefix'],
         iconSize: flags['icon-size'],
       },

@@ -9,8 +9,8 @@ import { DEFAULTS } from '../constants';
 import { SVGXmlItem } from '../interfaces';
 
 const schema = z.object({
+  inputs: z.union([z.string().optional(), z.string().array().optional()]),
   output: z.string(),
-  svgRemote: z.string(),
   iconTrimPrefix: z.string().optional(),
   iconSize: z.number().default(DEFAULTS.iconSize),
   iconComponentPrefix: z.string().optional(),
@@ -77,7 +77,7 @@ export class Configure {
 
     // calculate remoteSvgData
     try {
-      this.remoteSvgData = await fetchXml(`http:${this.config.svgRemote}`);
+      this.remoteSvgData = await fetchXml(`http:${this.config.inputs}`);
     } catch (error) {
       throw new Error('remote svg url is invalid');
     }
