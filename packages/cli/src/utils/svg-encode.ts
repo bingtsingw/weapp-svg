@@ -12,6 +12,7 @@ const addAttribute = (
   sub: XmlData['svg']['symbol'][number]['path'][number],
   counter: { colorIndex: number },
   config?: { hexToRgb: boolean },
+  // eslint-disable-next-line max-params
 ) => {
   let template = '';
 

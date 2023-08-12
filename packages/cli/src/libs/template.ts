@@ -2,19 +2,19 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 export class Template {
-  static getIndex() {
+  public static getIndex() {
     return this.getTemplate('index.ts');
   }
 
-  static getType() {
+  public static getType() {
     return this.getTemplate('types.ts');
   }
 
-  static getHook() {
+  public static getHook() {
     return this.getTemplate('hooks.ts');
   }
 
-  static getIcon() {
+  public static getIcon() {
     return this.getTemplate('icon.tsx');
   }
 

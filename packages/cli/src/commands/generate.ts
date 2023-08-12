@@ -4,11 +4,11 @@ import { Configure } from '../libs/configure';
 import { Generator } from '../libs/generator';
 
 export default class Generate extends Command {
-  static aliases = ['g'];
+  public static aliases = ['g'];
 
-  static description = 'generate components';
+  public static description = 'generate components';
 
-  static flags = {
+  public static flags = {
     config: Flags.string({
       char: 'c',
       description: 'config file path',
@@ -41,7 +41,7 @@ export default class Generate extends Command {
     }),
   };
 
-  async run(): Promise<void> {
+  public async run(): Promise<void> {
     const { flags } = await this.parse(Generate);
     await Configure.init(
       {

@@ -6,9 +6,9 @@ import { Configure } from './configure';
 import { Template } from './template';
 
 export class Generator {
-  static output: string;
+  public static output: string;
 
-  static run() {
+  public static run() {
     this.output = Configure.getConfig().output;
 
     this.clearOutput();

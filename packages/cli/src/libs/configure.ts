@@ -1,4 +1,5 @@
 import { existsSync } from 'fs';
+import { readJSONSync } from 'fs-extra';
 import { XmlData, fetchXml } from 'iconfont-parser';
 import { isNil, kebabCase, omitBy } from 'lodash';
 import { resolve } from 'path';
@@ -22,14 +23,14 @@ export class Configure {
   private static remoteSvgData: XmlData;
   private static icons: { name: string; data: SVGXmlItem }[];
 
-  static async init(configFlag: Partial<Config>, configPath?: string) {
+  public static async init(configFlag: Partial<Config>, configPath?: string) {
     let config = {};
 
     // 优先读取CLI配置
     if (configPath) {
       const configFile = resolve(process.cwd(), configPath);
       if (existsSync(configFile)) {
-        config = require(configFile);
+        config = readJSONSync(configFile);
       } else {
         // 当CLI配置的configPath不存在时, 报错
         throw new Error('config file not found');
@@ -38,7 +39,7 @@ export class Configure {
       const configFile = resolve(process.cwd(), DEFAULTS.configPath);
       // 当默认的configPath不存在时, 静默处理, 不报错
       if (existsSync(configFile)) {
-        config = require(configFile);
+        config = readJSONSync(configFile);
       }
     }
 
@@ -54,15 +55,15 @@ export class Configure {
     await this.normalize();
   }
 
-  static getConfig() {
+  public static getConfig() {
     return this.config;
   }
 
-  static getSvgData() {
+  public static getSvgData() {
     return this.remoteSvgData;
   }
 
-  static getIcons() {
+  public static getIcons() {
     return this.icons;
   }
 
