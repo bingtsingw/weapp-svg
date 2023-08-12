@@ -12,7 +12,7 @@ export default function Index() {
     <View className="index">
       <Text>Hello world!</Text>
       <View>
-        <IconArrowLeftUpLine style={{ display: 'inline-block' }} />
+        <IconArrowLeftUpLine style={{ display: 'inline-block' }} size={64} />
         <IconArrowRightLine style={{ display: 'inline-block' }} />
         <IconArrowRightUpLine style={{ display: 'inline-block' }} color="ccc" />
         <IconArrowUpLine style={{ display: 'inline-block' }} color="red" />
