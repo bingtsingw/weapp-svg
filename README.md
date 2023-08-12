@@ -64,7 +64,7 @@ wesvg generate
 生成配置:
 
 ```shell
-npx wesvg init
+na wesvg init
 ```
 
 此时项目根目录会生成一个`wesvg.json`的文件，内容如下：
@@ -86,14 +86,14 @@ npx wesvg init
 生成组件:
 
 ```shell
-npx wesvg generate
+na wesvg generate
 
 ```
 
 `wesvg generate`也可以传入`wesvg.json`中的配置, 并且命令行配置会覆盖`wesvg.json`中的配置, 例如:
 
 ```shell
-npx wesvg generate --inputs ./iconfont --output ./src/components/icons --icon-trim-prefix icon --icon-size 16
+na wesvg generate --inputs ./iconfont --output ./src/components/icons --icon-trim-prefix icon --icon-size 16
 ```
 
 ## TODO
