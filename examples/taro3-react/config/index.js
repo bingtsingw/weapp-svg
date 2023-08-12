@@ -1,3 +1,5 @@
+import path from 'path';
+
 const config = {
   projectName: 'taro3-react',
   date: '2023-8-12',
@@ -8,7 +10,7 @@ const config = {
     828: 1.81 / 2,
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: [],
   defineConstants: {},
   copy: {
@@ -19,6 +21,9 @@ const config = {
   compiler: 'webpack5',
   cache: {
     enable: false, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
+  },
+  alias: {
+    '@/src': path.resolve(__dirname, '../src'),
   },
   mini: {
     postcss: {
