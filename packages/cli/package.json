@@ -1,6 +1,6 @@
 {
   "name": "@wesvg/cli",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "private": false,
   "license": "MIT",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsc -b && cp -R ./src/templates ./dist/templates",
-    "prepack": "npm run build && oclif manifest && oclif readme",
+    "prepack": "npm run build && oclif manifest",
     "postpack": "rimraf oclif.manifest.json",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
   },
