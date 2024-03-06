@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro';
+import { getSystemInfoSync } from '@tarojs/taro';
 import { useEffect, useState } from 'react';
 
 function hex2rgb(hex: string) {
@@ -43,7 +43,7 @@ export const useSize = (size: number) => {
   const [svgSize, setSvgSize] = useState(size);
 
   useEffect(() => {
-    setSvgSize(parseFloat(String((size / 375) * Taro.getSystemInfoSync().windowWidth)));
+    setSvgSize(parseFloat(String((size / 375) * getSystemInfoSync().windowWidth)));
   }, [size]);
 
   return { svgSize };
