@@ -43,7 +43,7 @@ export const useSize = (size: number) => {
   const [svgSize, setSvgSize] = useState(size);
 
   useEffect(() => {
-    setSvgSize(parseFloat(String((size / 375) * Taro.getSystemInfoSync().windowWidth)));
+    setSvgSize(parseFloat(String((size / 375) * Taro.getWindowInfo().windowWidth)));
   }, [size]);
 
   return { svgSize };
