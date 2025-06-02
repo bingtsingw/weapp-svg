@@ -1,5 +1,15 @@
-import Taro from '@tarojs/taro';
+import { canIUse, ENV_TYPE, getEnv, getSystemInfoSync, getWindowInfo } from '@tarojs/taro';
 import { useEffect, useState } from 'react';
+
+function getWindowWidth() {
+  const isWeApp = getEnv() === ENV_TYPE.WEAPP;
+
+  if (isWeApp && canIUse('getWindowInfo')) {
+    return getWindowInfo().windowWidth;
+  }
+
+  return getSystemInfoSync().windowWidth;
+}
 
 function hex2rgb(hex: string) {
   let rgb: number[] = [];
@@ -43,7 +53,7 @@ export const useSize = (size: number) => {
   const [svgSize, setSvgSize] = useState(size);
 
   useEffect(() => {
-    setSvgSize(parseFloat(String((size / 375) * Taro.getSystemInfoSync().windowWidth)));
+    setSvgSize(parseFloat(String((size / 375) * getWindowWidth())));
   }, [size]);
 
   return { svgSize };

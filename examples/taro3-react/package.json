@@ -22,7 +22,8 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:swan": "npm run build:swan -- --watch",
     "dev:tt": "npm run build:tt -- --watch",
-    "dev:weapp": "npm run build:weapp -- --watch"
+    "dev:weapp": "npm run build:weapp -- --watch",
+    "svg": "wesvg generate"
   },
   "browserslist": [
     "last 3 versions",

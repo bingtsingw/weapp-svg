@@ -1,6 +1,6 @@
 {
   "name": "@wesvg/cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "license": "MIT",
   "main": "dist/index.js",
@@ -18,6 +18,14 @@
     "prepack": "npm run build && oclif manifest",
     "postpack": "rimraf oclif.manifest.json",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
+  },
+  "oclif": {
+    "bin": "wesvg",
+    "commands": "./dist/commands",
+    "dirname": "wesvg",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
   },
   "dependencies": {
     "@oclif/core": "^2.11.8",
@@ -41,13 +49,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "oclif": {
-    "bin": "wesvg",
-    "dirname": "wesvg",
-    "commands": "./dist/commands",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
   }
 }

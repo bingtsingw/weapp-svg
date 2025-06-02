@@ -3,8 +3,6 @@
 // prettier-ignore
 import { View } from '@tarojs/components';
 // prettier-ignore
-import { FC } from 'react';
-// prettier-ignore
 import { useColor, useSize } from '../hooks';
 // prettier-ignore
 import { IconProps } from '../types';
@@ -13,7 +11,7 @@ import { IconProps } from '../types';
 const quote = '"';
 
 // prettier-ignore
-export const IconArrowUpLine: FC<IconProps> = (props) => {
+export const IconArrowUpLine = (props: IconProps) => {
   const { size = 24, color, style = {}, className = '' } = props;
   const { colors, isStr } = useColor(color);
   const { svgSize } = useSize(size);

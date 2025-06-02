@@ -2,10 +2,12 @@ import { existsSync } from 'fs';
 import { readJSONSync } from 'fs-extra';
 import { find, isArray, isNil, kebabCase, omitBy } from 'lodash';
 import { resolve } from 'path';
-import { ZodError, z } from 'zod';
+import type { ZodError } from 'zod';
+import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { DEFAULTS } from '../constants';
-import { SvgSymbol, svgSymbolify } from '../utils';
+import type { SvgSymbol } from '../utils';
+import { svgSymbolify } from '../utils';
 
 const schema = z.object({
   inputs: z.string().array(),

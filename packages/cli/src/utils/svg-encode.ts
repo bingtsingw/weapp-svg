@@ -1,5 +1,5 @@
 import { hexToRgb } from './hex-to-rgb';
-import { SvgSymbol } from './svg-symbolify';
+import type { SvgSymbol } from './svg-symbolify';
 
 const ATTRIBUTE_FILL_MAP = ['path'];
 const COLOR_ATTRIBUTE = ['fill', 'stroke', 'stop-color'];
