@@ -2,22 +2,53 @@ import { existsSync } from 'fs';
 import { readJSONSync } from 'fs-extra';
 import { find, isArray, isNil, kebabCase, omitBy } from 'lodash';
 import { resolve } from 'path';
-import type { ZodError } from 'zod';
-import { z } from 'zod';
-import { fromZodError } from 'zod-validation-error';
 import { DEFAULTS } from '../constants';
 import type { SvgSymbol } from '../utils';
 import { svgSymbolify } from '../utils';
 
-const schema = z.object({
-  inputs: z.string().array(),
-  output: z.string(),
-  iconTrimPrefix: z.string().optional(),
-  iconSize: z.number().default(DEFAULTS.iconSize),
-  iconComponentPrefix: z.string().optional(),
-});
+interface Config {
+  inputs: string[];
+  output: string;
+  iconTrimPrefix?: string;
+  iconSize?: number;
+  iconComponentPrefix?: string;
+}
 
-export type Config = z.infer<typeof schema>;
+const validateConfig = (config: Config): Config => {
+  const result = config;
+
+  if (!Array.isArray(config.inputs)) {
+    throw new Error('inputs must be an array');
+  }
+
+  for (const input of config.inputs) {
+    if (typeof input !== 'string') {
+      throw new Error('inputs must be an array of strings');
+    }
+  }
+
+  if (!config.output || typeof config.output !== 'string') {
+    throw new Error('output must be a string');
+  }
+
+  if (config.iconTrimPrefix && typeof config.iconTrimPrefix !== 'string') {
+    throw new Error('iconTrimPrefix must be a string');
+  }
+
+  if (config.iconSize && typeof config.iconSize !== 'number') {
+    throw new Error('iconSize must be a number');
+  }
+
+  if (!config.iconSize) {
+    result.iconSize = DEFAULTS.iconSize;
+  }
+
+  if (config.iconComponentPrefix && typeof config.iconComponentPrefix !== 'string') {
+    throw new Error('iconComponentPrefix must be a string');
+  }
+
+  return result;
+};
 
 export class Configure {
   private static config: Config;
@@ -44,17 +75,13 @@ export class Configure {
       }
     }
 
-    try {
-      const _config = { ...omitBy(config, isNil), ...omitBy(configFlag, isNil) };
-      const _inputs = _config.inputs;
+    const _config = { ...omitBy(config, isNil), ...omitBy(configFlag, isNil) } as unknown as Config;
+    const _inputs = _config.inputs;
 
-      this.config = schema.parse({
-        ..._config,
-        inputs: isArray(_inputs) ? _inputs : [_inputs],
-      });
-    } catch (err) {
-      throw fromZodError(err as ZodError, { prefix: 'config validation error' });
-    }
+    this.config = validateConfig({
+      ..._config,
+      inputs: isArray(_inputs) ? _inputs : [_inputs],
+    });
 
     await this.normalize();
   }
