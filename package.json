@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
-    "@types/lodash": "^4.14.197",
     "@types/node": "24.13.3",
     "@xstools-dev/cli-toolkit": "^0.2.0",
     "@xstools-dev/config-ts": "^0.1.0",

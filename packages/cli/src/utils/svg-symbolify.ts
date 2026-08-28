@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { readFileSync, readdirSync, statSync } from 'fs';
-import { get, isArray } from 'lodash';
 import { basename, resolve } from 'path';
 import { exit } from 'process';
 import { Parser } from 'xml2js';
+import { get } from '@xstools/utility/object';
 
 export interface SvgSymbol {
   $: {
@@ -31,7 +31,7 @@ const parseRemote = async (input: string): Promise<SvgSymbol[]> => {
         const result = await parser.parseStringPromise(`<svg>${matches[1]}</svg>`);
         const symbols = get(result, 'svg.symbol', []);
 
-        if (isArray(symbols) && symbols.length > 0) {
+        if (Array.isArray(symbols) && symbols.length > 0) {
           return symbols as SvgSymbol[];
         }
       }

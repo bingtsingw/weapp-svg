@@ -1,7 +1,8 @@
 import { existsSync } from 'fs';
 import { readJSONSync } from 'fs-extra';
-import { find, isArray, isNil, kebabCase, omitBy } from 'lodash';
 import { resolve } from 'path';
+import { omitBy } from '@xstools/utility/object';
+import { caseKebab } from '@xstools/utility/string';
 import { DEFAULTS } from '../constants';
 import type { SvgSymbol } from '../utils';
 import { svgSymbolify } from '../utils';
@@ -78,12 +79,15 @@ export class Configure {
       }
     }
 
-    const _config = { ...omitBy(config, isNil), ...omitBy(configFlag, isNil) } as unknown as Config;
+    const _config = {
+      ...omitBy(config, (value) => value === null || value === undefined),
+      ...omitBy(configFlag, (value) => value === null || value === undefined),
+    } as unknown as Config;
     const _inputs = _config.inputs;
 
     this.config = validateConfig({
       ..._config,
-      inputs: isArray(_inputs) ? _inputs : [_inputs],
+      inputs: Array.isArray(_inputs) ? _inputs : [_inputs],
     });
 
     await this.normalize();
@@ -132,13 +136,13 @@ export class Configure {
     for (const symbol of symbols) {
       const name = symbol.$.id;
 
-      if (find(this.icons, { name })) {
+      if (this.icons.some((icon) => icon.name === name)) {
         console.warn(`duplicate icon: ${name}`);
         continue;
       }
 
       this.icons.push({
-        name: kebabCase(name.replace(new RegExp(`^${this.config.iconTrimPrefix ?? ''}-`), '')),
+        name: caseKebab(name.replace(new RegExp(`^${this.config.iconTrimPrefix ?? ''}-`), '')),
         data: symbol,
       });
     }
