@@ -27,4 +27,16 @@ describe('svgEncode', () => {
     expect(result).toContain("%3Cpath d='M0 0h20v20H0z' fill='${(isStr ? color : color?.[0]) || '#CCCCCC'}' /%3E");
     expect(result).toContain('%3C/g%3E');
   });
+
+  it('keeps color indexes for sibling elements of the same type', () => {
+    const result = svgEncode(
+      new XmlElement('svg', { viewBox: '0 0 24 24' }, [
+        new XmlElement('path', { d: 'M0 0h12v24H0z', fill: '#ff0000' }),
+        new XmlElement('path', { d: 'M12 0h12v24H12z', fill: '#00ff00' }),
+      ]),
+    );
+
+    expect(result).toContain("fill='${(isStr ? color : color?.[0]) || '#ff0000'}'");
+    expect(result).toContain("fill='${(isStr ? color : color?.[1]) || '#00ff00'}'");
+  });
 });

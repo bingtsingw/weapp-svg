@@ -56,13 +56,19 @@ const addAttribute = (
 
 const generateXML = (data: SvgSymbol, config?: { hexToRgb: boolean }) => {
   let template = '';
+  const counters = new Map<string, { colorIndex: number }>();
 
   for (const element of data.children) {
     if (!(element instanceof XmlElement)) {
       continue;
     }
 
-    const counter = { colorIndex: 0 };
+    let counter = counters.get(element.name);
+    if (!counter) {
+      counter = { colorIndex: 0 };
+      counters.set(element.name, counter);
+    }
+
     if (SINGLE_TAG.includes(element.name)) {
       template += `<${element.name}${addAttribute(element.name, element, counter, config)} />`;
     } else {
