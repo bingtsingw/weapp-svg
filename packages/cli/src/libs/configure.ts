@@ -56,6 +56,9 @@ export class Configure {
   private static icons: { name: string; data: SvgSymbol }[] = [];
 
   public static async init(configFlag: Partial<Config>, configPath?: string) {
+    this.svgSymbols = [];
+    this.icons = [];
+
     let config = {};
 
     // 优先读取CLI配置

@@ -53,10 +53,6 @@ ni @wesvg/cli -D
 wesvg generate
 ```
 
-## 示例
-
-查看[examples](examples)目录寻找相关项目示例.
-
 ## 使用
 
 ### Step1
@@ -79,7 +75,17 @@ na wesvg init
 }
 ```
 
-可以查看[demo](examples/taro3-react/wesvg.json)了解各个配置的用法.
+可以按以下配置生成组件：
+
+```json
+{
+  "inputs": ["./src/assets/svg"],
+  "output": "./src/components/icons",
+  "iconTrimPrefix": "icon",
+  "iconSize": 24,
+  "iconComponentPrefix": "Icon"
+}
+```
 
 ### Step2
 

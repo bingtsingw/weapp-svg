@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
+  test: {
+    include: ['packages/*/src/**/*.test.ts'],
+  },
   staged: {
     '**/*.{js,jsx,ts,tsx}': 'vp check',
     '**/*.{html,css,md,json}': 'vp fmt',

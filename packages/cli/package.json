@@ -21,8 +21,7 @@
     "build": "vp pack && cp -R ./src/templates ./dist/templates",
     "dev": "vp pack --watch",
     "prepack": "npm run build && oclif manifest",
-    "postpack": "rimraf oclif.manifest.json",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\""
+    "postpack": "rimraf oclif.manifest.json"
   },
   "dependencies": {
     "@oclif/core": "^2.11.8",
@@ -33,12 +32,7 @@
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "@oclif/test": "^2.4.4",
-    "@types/chai": "^4.3.5",
-    "@types/mocha": "^10.0.1",
     "@types/xml2js": "^0.4.11",
-    "chai": "^4.3.7",
-    "mocha": "^10.2.0",
     "oclif": "^3.11.3"
   },
   "oclif": {

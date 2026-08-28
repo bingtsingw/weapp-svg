@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, statSync } from 'fs';
 import { get, isArray } from 'lodash';
-import { resolve } from 'path';
+import { basename, resolve } from 'path';
 import { exit } from 'process';
 import { Parser } from 'xml2js';
 
@@ -53,14 +53,14 @@ const parseLocal = async (input: string): Promise<SvgSymbol[]> => {
   const parser = new Parser();
   const symbols: SvgSymbol[] = [];
   try {
-    const files = readdirSync(input);
+    const files = statSync(input).isDirectory() ? readdirSync(input).map((file) => resolve(input, file)) : [input];
 
     for (const file of files) {
       if (!file.endsWith('.svg')) {
         continue;
       }
-      const result = await parser.parseStringPromise(readFileSync(resolve(input, file), 'utf-8'));
-      result.svg.$.id = file.replace(/\.svg$/, '');
+      const result = await parser.parseStringPromise(readFileSync(file, 'utf-8'));
+      result.svg.$.id = basename(file, '.svg');
       symbols.push(result.svg);
     }
 

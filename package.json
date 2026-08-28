@@ -2,16 +2,17 @@
   "name": "weapp-svg",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "check": "vp check",
     "check:fix": "vp check --fix",
-    "check-publish": "pnpm run build && pnpm run check && pnpm run test",
+    "check-publish": "pnpm run check && pnpm run test",
     "clean": "del **/dist **/.build **/.swc **/.turbo **/node_modules !node_modules",
     "commit": "czg",
     "dev": "turbo run dev",
     "prepare": "vp hooks enable",
-    "test": "turbo run test"
+    "test": "pnpm run build && vp test"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
