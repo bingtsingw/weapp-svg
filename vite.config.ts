@@ -9,6 +9,14 @@ export default defineConfig({
     '**/*.{html,css,md,json}': 'vp fmt',
   },
   lint: {
+    options: {
+      typeAware: true,
+      typeCheck: true,
+    },
+    plugins: ['typescript'],
+    env: {
+      node: true,
+    },
     rules: {
       'no-unused-vars': [
         'error',

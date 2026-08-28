@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "check": "vp check && pnpm run typecheck",
-    "check:fix": "vp check --fix && pnpm run typecheck",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
     "check-publish": "pnpm run check && pnpm run test",
     "changeset-add": "changeset add",
     "changeset-publish": "pnpm run check-publish && changeset publish",
@@ -16,10 +16,10 @@
     "commit": "czg",
     "dev": "turbo run dev",
     "prepare": "vp hooks enable",
-    "test": "pnpm run build && vp test",
-    "typecheck": "pnpm --filter @wesvg/cli exec tsc --noEmit"
+    "test": "pnpm run build && vp test"
   },
   "devDependencies": {
+    "@types/bun": "1.3.14",
     "@types/node": "24.13.3",
     "@xstools-dev/cli-toolkit": "^0.2.0",
     "@xstools-dev/config-ts": "^0.1.0",

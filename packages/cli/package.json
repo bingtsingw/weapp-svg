@@ -2,7 +2,27 @@
   "name": "@wesvg/cli",
   "version": "0.4.0",
   "private": false,
+  "keywords": [
+    "cli",
+    "icon",
+    "svg",
+    "taro"
+  ],
+  "homepage": "https://github.com/bingtsingw/weapp-svg#readme",
+  "bugs": {
+    "url": "https://github.com/bingtsingw/weapp-svg/issues"
+  },
   "license": "MIT",
+  "author": {
+    "name": "bingtsingw",
+    "email": "bingtsingw@gmail.com",
+    "url": "https://github.com/bingtsingw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingtsingw/weapp-svg.git",
+    "directory": "packages/cli"
+  },
   "bin": {
     "wesvg": "./bin/wesvg"
   },
