@@ -133,7 +133,10 @@ export class Configure {
     // calculate iconNames
     const symbols = this.getSvgSymbols();
     for (const symbol of symbols) {
-      const name = symbol.$.id;
+      const name = symbol.attributes['id'];
+      if (!name) {
+        throw new Error('SVG symbol id is required');
+      }
 
       if (this.icons.some((icon) => icon.name === name)) {
         console.warn(`duplicate icon: ${name}`);

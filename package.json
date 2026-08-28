@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "check": "vp check",
-    "check:fix": "vp check --fix",
+    "check": "vp check && pnpm run typecheck",
+    "check:fix": "vp check --fix && pnpm run typecheck",
     "check-publish": "pnpm run check && pnpm run test",
     "clean": "del **/dist **/.build **/.swc **/.turbo **/node_modules !node_modules",
     "commit": "czg",
     "dev": "turbo run dev",
     "prepare": "vp hooks enable",
-    "test": "pnpm run build && vp test"
+    "test": "pnpm run build && vp test",
+    "typecheck": "pnpm --filter @wesvg/cli exec tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "24.13.3",

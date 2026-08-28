@@ -28,10 +28,11 @@ describe('svgSymbolify', () => {
 
     await expect(svgSymbolify(file)).resolves.toMatchObject([
       {
-        $: {
+        attributes: {
           id: 'arrow-left',
           viewBox: '0 0 24 24',
         },
+        name: 'svg',
       },
     ]);
   });
@@ -43,7 +44,10 @@ describe('svgSymbolify', () => {
     await writeFile(join(directory, 'second.svg'), SVG);
     vi.spyOn(console, 'log').mockImplementation(() => undefined);
 
-    await expect(svgSymbolify(directory)).resolves.toMatchObject([{ $: { id: 'first' } }, { $: { id: 'second' } }]);
+    await expect(svgSymbolify(directory)).resolves.toMatchObject([
+      { attributes: { id: 'first' }, name: 'svg' },
+      { attributes: { id: 'second' }, name: 'svg' },
+    ]);
   });
 
   it('parses icons from a remote iconfont script', async () => {
@@ -57,10 +61,11 @@ describe('svgSymbolify', () => {
 
     await expect(svgSymbolify('https://example.com/iconfont.js')).resolves.toMatchObject([
       {
-        $: {
+        attributes: {
           id: 'remote-icon',
           viewBox: '0 0 24 24',
         },
+        name: 'symbol',
       },
     ]);
     expect(fetchMock).toHaveBeenCalledWith('https://example.com/iconfont.js');

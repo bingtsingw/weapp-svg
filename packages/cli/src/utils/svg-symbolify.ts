@@ -1,21 +1,19 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { exit } from 'node:process';
-import { Parser } from 'xml2js';
-import { get } from '@xstools/utility/object';
+import { parseXml, XmlElement } from '@rgrove/parse-xml';
 
-export interface SvgSymbol {
-  $: {
-    viewBox: string;
-    id: string;
-  };
-  path: Array<{
-    $: {
-      d: string;
-      fill?: string;
-    };
-  }>;
-}
+export type SvgSymbol = XmlElement;
+
+const parseSvg = (source: string) => {
+  const svg = parseXml(source).root;
+
+  if (!svg || svg.name !== 'svg') {
+    throw new Error('SVG root element not found');
+  }
+
+  return svg;
+};
 
 const parseRemote = async (input: string): Promise<SvgSymbol[]> => {
   console.log(`parsing icons from remote: ${input}`);
@@ -25,16 +23,17 @@ const parseRemote = async (input: string): Promise<SvgSymbol[]> => {
     if (!response.ok) {
       throw new Error(`Failed to fetch remote SVG file: ${response.status}`);
     }
-    const matches = (await response.text()).match(/'<svg>(.+?)<\/svg>'/);
+    const matches = (await response.text()).match(/'<svg>(.+?)<[/]svg>'/);
 
     try {
-      const parser = new Parser();
       if (matches) {
-        const result = await parser.parseStringPromise(`<svg>${matches[1]}</svg>`);
-        const symbols = get(result, 'svg.symbol', []);
+        const svg = parseSvg(`<svg>${matches[1]}</svg>`);
+        const symbols = svg.children.filter(
+          (child): child is XmlElement => child instanceof XmlElement && child.name === 'symbol',
+        );
 
-        if (Array.isArray(symbols) && symbols.length > 0) {
-          return symbols as SvgSymbol[];
+        if (symbols.length > 0) {
+          return symbols;
         }
       }
 
@@ -52,7 +51,6 @@ const parseRemote = async (input: string): Promise<SvgSymbol[]> => {
 const parseLocal = async (input: string): Promise<SvgSymbol[]> => {
   console.log(`parsing icons from local: ${input}`);
 
-  const parser = new Parser();
   const symbols: SvgSymbol[] = [];
   try {
     const files = statSync(input).isDirectory() ? readdirSync(input).map((file) => resolve(input, file)) : [input];
@@ -61,9 +59,9 @@ const parseLocal = async (input: string): Promise<SvgSymbol[]> => {
       if (!file.endsWith('.svg')) {
         continue;
       }
-      const result = await parser.parseStringPromise(readFileSync(file, 'utf-8'));
-      result.svg.$.id = basename(file, '.svg');
-      symbols.push(result.svg);
+      const svg = parseSvg(readFileSync(file, 'utf8'));
+      svg.attributes['id'] = basename(file, '.svg');
+      symbols.push(svg);
     }
 
     return symbols;
