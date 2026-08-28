@@ -10,7 +10,6 @@
     "check-publish": "pnpm run check && pnpm run test",
     "changeset-add": "changeset add",
     "changeset-publish": "pnpm run check-publish && changeset publish",
-    "changeset-version": "changeset version",
     "check-mono": "sherif",
     "clean": "del **/dist **/.build **/.swc **/.turbo **/node_modules !node_modules",
     "commit": "czg",
