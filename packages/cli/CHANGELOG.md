@@ -1,5 +1,11 @@
 # @wesvg/cli
 
+## 0.5.0
+
+### Minor Changes
+
+- [`9adec8e`](https://github.com/bingtsingw/weapp-svg/commit/9adec8e184c9abd536fe1ed0273ff3181b3d0d23) Thanks [@bingtsingw](https://github.com/bingtsingw)! - use type import
+
 ## 0.4.2
 
 ### Patch Changes
