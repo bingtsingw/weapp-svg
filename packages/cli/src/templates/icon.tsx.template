@@ -5,7 +5,7 @@ import { View } from '@tarojs/components';
 // prettier-ignore
 import { useColor, useSize } from '../hooks';
 // prettier-ignore
-import { IconProps } from '../types';
+import type { IconProps } from '../types';
 
 // prettier-ignore
 const quote = '"';
