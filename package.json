@@ -21,5 +21,10 @@
     "typescript": "5.8.3",
     "vite-plus": "^0.3.0"
   },
-  "packageManager": "pnpm@10.34.5"
+  "packageManager": "pnpm@10.34.5",
+  "pnpm": {
+    "overrides": {
+      "@wesvg/cli": "workspace:*"
+    }
+  }
 }

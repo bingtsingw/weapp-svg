@@ -1,5 +1,5 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export class Template {
   public static getIndex() {
@@ -19,6 +19,10 @@ export class Template {
   }
 
   private static getTemplate(name: string) {
-    return readFileSync(join(__dirname, '../templates', `${name}.template`), 'utf8').toString();
+    const templateDirectory = existsSync(join(__dirname, 'templates'))
+      ? join(__dirname, 'templates')
+      : join(__dirname, '../templates');
+
+    return readFileSync(join(templateDirectory, `${name}.template`), 'utf8').toString();
   }
 }

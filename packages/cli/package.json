@@ -4,12 +4,11 @@
   "private": false,
   "license": "MIT",
   "bin": {
-    "wesvg": "./bin/run"
+    "wesvg": "./bin/wesvg"
   },
   "files": [
     "/bin",
-    "/dist",
-    "/oclif.manifest.json"
+    "/dist"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -20,25 +19,14 @@
   "scripts": {
     "build": "vp pack && cp -R ./src/templates ./dist/templates",
     "dev": "vp pack --watch",
-    "prepack": "npm run build && oclif manifest",
-    "postpack": "rimraf oclif.manifest.json"
+    "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@oclif/core": "^2.11.8",
-    "@oclif/plugin-help": "^5.2.16",
     "@xstools/utility": "^1.0.0",
+    "citty": "^0.2.2",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "@types/xml2js": "^0.4.11",
-    "oclif": "^3.11.3"
-  },
-  "oclif": {
-    "bin": "wesvg",
-    "commands": "./dist/commands",
-    "dirname": "wesvg",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
+    "@types/xml2js": "^0.4.11"
   }
 }
