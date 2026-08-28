@@ -1,7 +1,6 @@
-import axios from 'axios';
-import { readFileSync, readdirSync, statSync } from 'fs';
-import { basename, resolve } from 'path';
-import { exit } from 'process';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { basename, resolve } from 'node:path';
+import { exit } from 'node:process';
 import { Parser } from 'xml2js';
 import { get } from '@xstools/utility/object';
 
@@ -22,8 +21,11 @@ const parseRemote = async (input: string): Promise<SvgSymbol[]> => {
   console.log(`parsing icons from remote: ${input}`);
 
   try {
-    const { data } = await axios.get<string>(input);
-    const matches = String(data).match(/'<svg>(.+?)<\/svg>'/);
+    const response = await fetch(input);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch remote SVG file: ${response.status}`);
+    }
+    const matches = (await response.text()).match(/'<svg>(.+?)<\/svg>'/);
 
     try {
       const parser = new Parser();

@@ -1,6 +1,5 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { emptyDirSync, ensureDirSync } from 'fs-extra';
-import { dirname, join } from 'path';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { svgEncode, unifyComponentName } from '../utils';
 import { Configure } from './configure';
 import { Template } from './template';
@@ -12,7 +11,7 @@ export class Generator {
     this.output = Configure.getConfig().output;
 
     this.clearOutput();
-    ensureDirSync(this.output);
+    mkdirSync(this.output, { recursive: true });
 
     this.generateIndex();
     this.generateType();
@@ -58,11 +57,11 @@ export class Generator {
 
   private static generate(file: string, content: string) {
     const path = join(this.output, file);
-    ensureDirSync(dirname(path));
+    mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, content);
   }
 
   private static clearOutput() {
-    emptyDirSync(this.output);
+    rmSync(this.output, { force: true, recursive: true });
   }
 }

@@ -8,9 +8,6 @@ importers:
 
   .:
     devDependencies:
-      '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.4
       '@types/node':
         specifier: 24.13.3
         version: 24.13.3
@@ -38,12 +35,6 @@ importers:
       '@xstools/utility':
         specifier: ^1.0.0
         version: 1.0.0
-      axios:
-        specifier: ^1.4.0
-        version: 1.9.0
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.3.0
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
@@ -2224,14 +2215,8 @@ packages:
   '@types/expect@1.20.4':
     resolution: {integrity: sha512-Q5Vn3yjTDyCMV50TB6VRIbQNxSE4OmZR86VSbGaNpfUolm0iePBB4KdEEHmxoY5sT2+2DIvXW0rvMDP2nHZ4Mg==}
 
-  '@types/fs-extra@11.0.4':
-    resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
-
   '@types/http-cache-semantics@4.0.4':
     resolution: {integrity: sha512-1m0bIFVc7eJWyve9S0RnuRgcQqF/Xd5QsUZAZeQFr1Q3/p9JWoQQEqmVy+DPTNpGXwhgIetAoYF8JSc33q29QA==}
-
-  '@types/jsonfile@6.1.4':
-    resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
@@ -9936,16 +9921,7 @@ snapshots:
 
   '@types/expect@1.20.4': {}
 
-  '@types/fs-extra@11.0.4':
-    dependencies:
-      '@types/jsonfile': 6.1.4
-      '@types/node': 24.13.3
-
   '@types/http-cache-semantics@4.0.4': {}
-
-  '@types/jsonfile@6.1.4':
-    dependencies:
-      '@types/node': 24.13.3
 
   '@types/keyv@3.1.4':
     dependencies:

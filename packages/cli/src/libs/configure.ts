@@ -1,6 +1,5 @@
-import { existsSync } from 'fs';
-import { readJSONSync } from 'fs-extra';
-import { resolve } from 'path';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { omitBy } from '@xstools/utility/object';
 import { caseKebab } from '@xstools/utility/string';
 import { DEFAULTS } from '../constants';
@@ -66,7 +65,7 @@ export class Configure {
     if (configPath) {
       const configFile = resolve(process.cwd(), configPath);
       if (existsSync(configFile)) {
-        config = readJSONSync(configFile);
+        config = JSON.parse(readFileSync(configFile, 'utf8'));
       } else {
         // 当CLI配置的configPath不存在时, 报错
         throw new Error('config file not found');
@@ -75,7 +74,7 @@ export class Configure {
       const configFile = resolve(process.cwd(), DEFAULTS.configPath);
       // 当默认的configPath不存在时, 静默处理, 不报错
       if (existsSync(configFile)) {
-        config = readJSONSync(configFile);
+        config = JSON.parse(readFileSync(configFile, 'utf8'));
       }
     }
 
