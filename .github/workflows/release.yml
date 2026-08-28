@@ -1,0 +1,32 @@
+name: Release
+
+permissions:
+  contents: write # to create release (changesets/action)
+  issues: write # to post issue comments (changesets/action)
+  pull-requests: write # to create pull request (changesets/action)
+  id-token: write # to use OpenID Connect token for provenance (changesets/action)
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: bingtsingw/composite-actions/setup-node@e51185c8475a406df2d2d731f4d3ccbb2a8ba6c0
+
+      - uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: pnpm changeset-publish
+          commit: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
+          npm_config_registry: https://registry.npmjs.org
