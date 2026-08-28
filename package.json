@@ -1,78 +1,26 @@
 {
   "name": "weapp-svg",
+  "private": true,
+  "license": "MIT",
   "scripts": {
     "build": "turbo run build",
-    "commit": "cz",
-    "format": "prettier . --check",
-    "format:fix": "prettier . --write",
-    "lint:js": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
-    "lint:js:fix": "eslint . --cache --ext .js,.jsx,.ts,.tsx --fix",
-    "mrm": "mrm --preset=@bingtsingw/mrm-preset",
-    "prepare": "if [ -d './node_modules/husky' ]; then husky install; fi"
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "check-publish": "pnpm run build && pnpm run check && pnpm run test",
+    "clean": "del **/dist **/.build **/.swc **/.turbo **/node_modules !node_modules",
+    "commit": "czg",
+    "dev": "turbo run dev",
+    "prepare": "vp hooks enable",
+    "test": "turbo run test"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,html,css,md,json}": "prettier --check"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "prettier": {
-    "plugins": [
-      "prettier-plugin-packagejson",
-      "prettier-plugin-organize-imports"
-    ],
-    "printWidth": 120,
-    "proseWrap": "never",
-    "singleQuote": true,
-    "trailingComma": "all"
-  },
-  "eslintConfig": {
-    "extends": [
-      "alloy",
-      "alloy/typescript"
-    ]
-  },
-  "eslintIgnore": [
-    "dist",
-    "build",
-    "out"
-  ],
   "devDependencies": {
-    "@babel/core": "^7.22.10",
-    "@babel/eslint-parser": "^7.22.10",
-    "@bingtsingw/mrm-preset": "^0.10.0",
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash": "^4.14.197",
-    "@types/node": "^20.4.10",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
-    "@typescript-eslint/parser": "^6.3.0",
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.47.0",
-    "eslint-config-alloy": "^5.1.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
-    "mrm": "^4.1.17",
-    "prettier": "^3.0.1",
-    "prettier-plugin-organize-imports": "^3.2.3",
-    "prettier-plugin-packagejson": "^2.4.5",
-    "rimraf": "^5.0.1",
-    "ts-node": "^10.9.1",
-    "tslib": "^2.6.1",
-    "turbo": "^1.10.12",
-    "typescript": "^5.1.6"
+    "@types/node": "24.13.3",
+    "@xstools-dev/cli-toolkit": "^0.2.0",
+    "@xstools-dev/config-ts": "^0.1.0",
+    "typescript": "5.8.3",
+    "vite-plus": "^0.3.0"
   },
-  "packageManager": "pnpm@10.11.0",
-  "pnpm": {
-    "neverBuiltDependencies": []
-  }
+  "packageManager": "pnpm@10.34.5"
 }

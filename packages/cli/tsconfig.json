@@ -1,12 +1,4 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "importHelpers": true,
-    "module": "CommonJS",
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": true,
-    "target": "es2019"
-  },
+  "extends": "@xstools-dev/config-ts/v5/tsconfig.modern.json",
   "include": ["src"]
 }

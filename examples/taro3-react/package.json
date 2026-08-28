@@ -25,48 +25,6 @@
     "dev:weapp": "npm run build:weapp -- --watch",
     "svg": "wesvg generate"
   },
-  "browserslist": [
-    "last 3 versions",
-    "Android >= 4.1",
-    "ios >= 8"
-  ],
-  "eslintConfig": {
-    "extends": [
-      "taro",
-      "taro/react",
-      "alloy",
-      "alloy/react",
-      "alloy/typescript"
-    ],
-    "rules": {
-      "jsx-quotes": [
-        "error",
-        "prefer-double"
-      ]
-    },
-    "overrides": [
-      {
-        "files": [
-          "*.config.js"
-        ],
-        "rules": {
-          "@typescript-eslint/no-require-imports": "off",
-          "import/no-commonjs": "off"
-        }
-      }
-    ],
-    "globals": {
-      "JSX": true,
-      "__wxConfig": true,
-      "defineAppConfig": true,
-      "definePageConfig": true
-    }
-  },
-  "eslintIgnore": [
-    "dist",
-    "build",
-    "out"
-  ],
   "dependencies": {
     "@babel/runtime": "^7.22.10",
     "@tarojs/components": "3.6.11",
@@ -110,6 +68,48 @@
     "typescript": "^5.1.6",
     "webpack": "5.88.2"
   },
+  "browserslist": [
+    "last 3 versions",
+    "Android >= 4.1",
+    "ios >= 8"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "taro",
+      "taro/react",
+      "alloy",
+      "alloy/react",
+      "alloy/typescript"
+    ],
+    "globals": {
+      "JSX": true,
+      "__wxConfig": true,
+      "defineAppConfig": true,
+      "definePageConfig": true
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.config.js"
+        ],
+        "rules": {
+          "@typescript-eslint/no-require-imports": "off",
+          "import/no-commonjs": "off"
+        }
+      }
+    ],
+    "rules": {
+      "jsx-quotes": [
+        "error",
+        "prefer-double"
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "dist",
+    "build",
+    "out"
+  ],
   "templateInfo": {
     "name": "default",
     "typescript": true,

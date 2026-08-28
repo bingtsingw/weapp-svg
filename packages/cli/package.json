@@ -3,8 +3,6 @@
   "version": "0.4.0",
   "private": false,
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "bin": {
     "wesvg": "./bin/run"
   },
@@ -13,19 +11,18 @@
     "/dist",
     "/oclif.manifest.json"
   ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
-    "build": "rimraf dist && tsc -b && cp -R ./src/templates ./dist/templates",
+    "build": "vp pack && cp -R ./src/templates ./dist/templates",
+    "dev": "vp pack --watch",
     "prepack": "npm run build && oclif manifest",
     "postpack": "rimraf oclif.manifest.json",
     "test": "mocha --forbid-only \"test/**/*.test.ts\""
-  },
-  "oclif": {
-    "bin": "wesvg",
-    "commands": "./dist/commands",
-    "dirname": "wesvg",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
   },
   "dependencies": {
     "@oclif/core": "^2.11.8",
@@ -44,8 +41,12 @@
     "mocha": "^10.2.0",
     "oclif": "^3.11.3"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "oclif": {
+    "bin": "wesvg",
+    "commands": "./dist/commands",
+    "dirname": "wesvg",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
   }
 }
