@@ -10,8 +10,8 @@ export class Template {
     return this.getTemplate('types.ts');
   }
 
-  public static getHook() {
-    return this.getTemplate('hooks.ts');
+  public static getColor() {
+    return this.getTemplate('color.ts');
   }
 
   public static getIcon() {

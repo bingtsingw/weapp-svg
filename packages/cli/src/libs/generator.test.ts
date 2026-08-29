@@ -38,9 +38,19 @@ describe('Generator', () => {
     await expect(readFile(join('icons', 'index.ts'), 'utf8')).resolves.toContain(
       "export { AppLeft } from './icons/left';",
     );
-    await expect(readFile(join('icons', 'icons', 'left.tsx'), 'utf8')).resolves.toContain('size = 32');
-    await expect(readFile(join('icons', 'icons', 'left.tsx'), 'utf8')).resolves.toContain('rgb(255,0,0)');
-    await expect(readFile(join('icons', 'hooks.ts'), 'utf8')).resolves.toContain('export const useColor');
+    const component = await readFile(join('icons', 'icons', 'left.tsx'), 'utf8');
+    expect(component).toContain('size = 32');
+    expect(component).toContain('rgb(255,0,0)');
+    // px 渲染走 pxTransform，不再有运行时 state/effect
+    expect(component).toContain('const svgSize = Taro.pxTransform(size);');
+    expect(component).not.toContain('useSize');
+    expect(component).not.toContain('useState');
+    expect(component).not.toContain('useEffect');
+    // 组件变量名与 svgEncode 注入的占位符表达式严格对应
+    expect(component).toContain("const isStr = typeof color === 'string';");
+    expect(component).toContain('const colors = normalizeColor(color);');
+    expect(component).toContain("(isStr ? colors : colors?.[0]) || 'rgb(255,0,0)'");
+    await expect(readFile(join('icons', 'color.ts'), 'utf8')).resolves.toContain('export const normalizeColor');
     await expect(readFile(join('icons', 'types.ts'), 'utf8')).resolves.toContain('export interface IconProps');
   });
 

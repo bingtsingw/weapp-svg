@@ -1,0 +1,22 @@
+function hex2rgb(hex: string) {
+  let rgb: number[] = [];
+
+  let _hex = hex.substring(1);
+
+  if (_hex.length === 3) {
+    _hex = _hex.replace(/(.)/g, '$1$1');
+  }
+
+  _hex.replace(/../g, (color: string) => {
+    rgb.push(parseInt(color, 0x10));
+    return color;
+  });
+
+  return `rgb(${rgb.join(',')})`;
+}
+
+const convert = (color: string) => (color.startsWith('#') ? hex2rgb(color) : color);
+
+export const normalizeColor = (color?: string | string[]) => {
+  return typeof color === 'string' ? convert(color) : color?.map(convert);
+};

@@ -15,7 +15,7 @@ export class Generator {
 
     this.generateIndex();
     this.generateType();
-    this.generateHook();
+    this.generateColor();
     this.generateIcons();
   }
 
@@ -27,8 +27,8 @@ export class Generator {
     this.generate('types.ts', Template.getType());
   }
 
-  private static generateHook() {
-    this.generate('hooks.ts', Template.getHook());
+  private static generateColor() {
+    this.generate('color.ts', Template.getColor());
   }
 
   private static generateIcons() {

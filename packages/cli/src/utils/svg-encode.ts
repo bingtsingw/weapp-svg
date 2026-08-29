@@ -83,7 +83,7 @@ const generateXML = (data: SvgSymbol, config?: { hexToRgb: boolean }) => {
 
 export const svgEncode = (data: SvgSymbol, config?: { hexToRgb: boolean }) => {
   const viewBox = data.attributes['viewBox'] ?? '';
-  let template = `$\{quote}data:image/svg+xml, <svg viewBox='${viewBox}' xmlns='http://www.w3.org/2000/svg' width='$\{svgSize}px' height='$\{svgSize}px'>#content#</svg>$\{quote}`;
+  let template = `$\{quote}data:image/svg+xml, <svg viewBox='${viewBox}' xmlns='http://www.w3.org/2000/svg'>#content#</svg>$\{quote}`;
 
   return template
     .replace('#content#', generateXML(data, config))

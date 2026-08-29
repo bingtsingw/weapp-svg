@@ -3,7 +3,9 @@
 // prettier-ignore
 import { View } from '@tarojs/components';
 // prettier-ignore
-import { useColor, useSize } from '../hooks';
+import Taro from '@tarojs/taro';
+// prettier-ignore
+import { normalizeColor } from '../color';
 // prettier-ignore
 import type { IconProps } from '../types';
 
@@ -13,10 +15,11 @@ const quote = '"';
 // prettier-ignore
 export const #componentName# = (props: IconProps) => {
   const { size = #size#, color, style = {}, className = '' } = props;
-  const { colors, isStr } = useColor(color);
-  const { svgSize } = useSize(size);
+  const isStr = typeof color === 'string';
+  const colors = normalizeColor(color);
+  const svgSize = Taro.pxTransform(size);
 
   return (
-    <View style={{backgroundImage: `url(#svg#)`, width: `${svgSize}px`, height: `${svgSize}px`, ...style}} className={className} />
+    <View style={{backgroundImage: `url(#svg#)`, backgroundSize: '100% 100%', width: svgSize, height: svgSize, ...style}} className={className} />
   );
 };
