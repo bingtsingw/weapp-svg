@@ -39,4 +39,21 @@ describe('svgEncode', () => {
     expect(result).toContain("fill='${(isStr ? color : color?.[0]) || '#ff0000'}'");
     expect(result).toContain("fill='${(isStr ? color : color?.[1]) || '#00ff00'}'");
   });
+
+  it('preserves the source order of sibling elements', () => {
+    const result = svgEncode(
+      new XmlElement('svg', { viewBox: '0 0 24 24' }, [
+        new XmlElement('circle', { id: 'background', cx: '12', cy: '12', r: '12' }),
+        new XmlElement('path', { id: 'face', d: 'M0 0h24v24H0z' }),
+        new XmlElement('circle', { id: 'confetti', cx: '2', cy: '2', r: '1' }),
+      ]),
+    );
+
+    const backgroundIndex = result.indexOf("%3Ccircle id='background'");
+    const faceIndex = result.indexOf("%3Cpath id='face'");
+    const confettiIndex = result.indexOf("%3Ccircle id='confetti'");
+
+    expect(backgroundIndex).toBeLessThan(faceIndex);
+    expect(faceIndex).toBeLessThan(confettiIndex);
+  });
 });
