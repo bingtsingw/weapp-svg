@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { isAbsolute, resolve } from 'node:path';
 import { omitBy } from '@xstools/utility/object';
 import { caseKebab } from '@xstools/utility/string';
 import { DEFAULTS } from '../constants';
@@ -107,7 +107,7 @@ export class Configure {
   private static async normalize() {
     // calculate output
     const output = this.config.output;
-    if (output.startsWith('/')) {
+    if (isAbsolute(output)) {
       throw new Error('output do not support absolute path');
     }
     this.config.output = resolve(process.cwd(), this.config.output);
