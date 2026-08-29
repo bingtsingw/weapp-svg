@@ -1,8 +1,13 @@
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { svgEncode, unifyComponentName } from '../utils';
 import { Configure } from './configure';
 import { Template } from './template';
+
+interface IconExport {
+  componentName: string;
+  fileName: string;
+}
 
 export class Generator {
   public static output: string;
@@ -13,14 +18,18 @@ export class Generator {
     this.clearOutput();
     mkdirSync(this.output, { recursive: true });
 
-    this.generateIndex();
     this.generateType();
     this.generateColor();
-    this.generateIcons();
+    this.generateIndex(this.generateIcons());
   }
 
-  private static generateIndex() {
-    this.generate('index.ts', Template.getIndex());
+  private static generateIndex(icons: IconExport[]) {
+    const lines = [...icons]
+      .sort((a, b) => (a.componentName < b.componentName ? -1 : 1))
+      .map(({ componentName, fileName }) => `export { ${componentName} } from './icons/${fileName}';`);
+    const iconExports = lines.length > 0 ? `${lines.join('\n')}\n` : '';
+
+    this.generate('index.ts', `${iconExports}${Template.getIndex()}`);
   }
 
   private static generateType() {
@@ -31,9 +40,11 @@ export class Generator {
     this.generate('color.ts', Template.getColor());
   }
 
-  private static generateIcons() {
+  private static generateIcons(): IconExport[] {
     const config = Configure.getConfig();
     const icons = Configure.getIcons();
+    const exports: IconExport[] = [];
+
     icons.forEach(({ name, data }) => {
       let template = Template.getIcon();
 
@@ -45,14 +56,10 @@ export class Generator {
       template = template.replace(/#svg#/g, svgEncode(data, { hexToRgb: true }));
 
       this.generate(join('icons', `${name}.tsx`), template);
-      this.prependIndex(componentName, name);
+      exports.push({ componentName, fileName: name });
     });
-  }
 
-  private static prependIndex(componentName: string, fileName: string) {
-    const path = join(this.output, 'index.ts');
-    const content = readFileSync(path, 'utf8');
-    writeFileSync(path, `export { ${componentName} } from './icons/${fileName}';\n${content}`);
+    return exports;
   }
 
   private static generate(file: string, content: string) {

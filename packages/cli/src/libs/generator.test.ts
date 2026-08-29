@@ -65,4 +65,22 @@ describe('Generator', () => {
     await expect(readFile(join('second-icons', 'index.ts'), 'utf8')).resolves.toContain('./icons/second');
     await expect(readFile(join('second-icons', 'index.ts'), 'utf8')).resolves.not.toContain('./icons/first');
   });
+
+  it('writes index.ts once with icon exports in alphabetical order', async () => {
+    await writeFile('zebra.svg', SVG);
+    await writeFile('apple.svg', SVG);
+    await writeFile('mango.svg', SVG);
+
+    await Configure.init({ inputs: ['./zebra.svg', './apple.svg', './mango.svg'], output: 'icons' });
+    Generator.run();
+
+    const index = await readFile(join('icons', 'index.ts'), 'utf8');
+    expect(index.split('\n')).toEqual([
+      "export { Apple } from './icons/apple';",
+      "export { Mango } from './icons/mango';",
+      "export { Zebra } from './icons/zebra';",
+      "export type { IconProps } from './types';",
+      '',
+    ]);
+  });
 });
