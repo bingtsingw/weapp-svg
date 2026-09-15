@@ -4,31 +4,23 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "turbo run build",
     "check": "vp check",
-    "check:fix": "vp check --fix",
-    "check-publish": "pnpm run check && pnpm run test",
-    "changeset-add": "changeset add",
-    "changeset-publish": "pnpm run check-publish && changeset publish",
     "check-mono": "sherif",
-    "clean": "del **/dist **/.build **/.swc **/.turbo **/node_modules !node_modules",
+    "check-publish": "pnpm run check && pnpm run test",
+    "changeset-publish": "pnpm run check-publish && changeset publish",
+    "clean": "del **/dist **/.build **/.swc **/node_modules !node_modules",
     "commit": "czg",
-    "dev": "turbo run dev",
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
     "prepare": "vp hooks enable",
     "test": "pnpm run build && vp test"
   },
   "devDependencies": {
-    "@types/bun": "1.3.14",
     "@types/node": "24.13.3",
-    "@xstools-dev/cli-toolkit": "^0.2.0",
-    "@xstools-dev/config-ts": "^0.1.0",
+    "@xstools-dev/cli-toolkit": "0.3.0",
+    "@xstools-dev/config-ts": "0.2.0",
     "typescript": "5.8.3",
-    "vite-plus": "^0.3.0"
+    "vite-plus": "0.3.2"
   },
-  "packageManager": "pnpm@10.34.5",
-  "pnpm": {
-    "overrides": {
-      "@wesvg/cli": "workspace:*"
-    }
-  }
+  "packageManager": "pnpm@12.4.1"
 }

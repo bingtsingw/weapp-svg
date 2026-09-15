@@ -1,5 +1,16 @@
 neverBuiltDependencies: []
 autoInstallPeers: false
+minimumReleaseAge: 0
+
+overrides:
+  '@wesvg/cli': workspace:*
 
 packages:
   - 'packages/**'
+
+tasks:
+  build:
+    dependsOn:
+      - ^build
+  dev:
+    dependsOn: []

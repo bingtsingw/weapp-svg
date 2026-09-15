@@ -7,7 +7,6 @@ next-env.d.ts
 deploy_versions
 .temp
 .rn_temp
-.eslintcache
 *.tsbuildinfo
 .stylelintcache
 .next
