@@ -6,8 +6,6 @@
   "scripts": {
     "check": "vp check",
     "check-mono": "sherif",
-    "check-publish": "pnpm run check && pnpm run test",
-    "changeset-publish": "pnpm run check-publish && changeset publish",
     "clean": "del **/dist **/.build **/.swc **/node_modules !node_modules",
     "commit": "czg",
     "dev": "pnpm -r run dev",
@@ -16,11 +14,11 @@
     "test": "pnpm run build && vp test"
   },
   "devDependencies": {
-    "@types/node": "24.13.3",
-    "@xstools-dev/cli-toolkit": "0.3.0",
+    "@types/node": "26.6.2",
+    "@xstools-dev/cli-toolkit": "0.4.0",
     "@xstools-dev/config-ts": "0.2.0",
     "typescript": "5.8.3",
-    "vite-plus": "0.3.2"
+    "vite-plus": "0.3.3"
   },
-  "packageManager": "pnpm@12.4.1"
+  "packageManager": "pnpm@12.4.2"
 }

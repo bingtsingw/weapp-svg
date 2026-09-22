@@ -42,8 +42,8 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@rgrove/parse-xml": "^4.2.3",
-    "@xstools/utility": "^1.0.0",
+    "@rgrove/parse-xml": "^5.0.0",
+    "@xstools/utility": "^1.1.0",
     "citty": "^0.2.2"
   }
 }

@@ -2,9 +2,6 @@ name: CI
 
 on:
   pull_request:
-  push:
-    branches:
-      - main
   workflow_dispatch:
   workflow_call:
 
@@ -15,5 +12,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: bingtsingw/composite-actions/setup-node@e51185c8475a406df2d2d731f4d3ccbb2a8ba6c0
       - run: |
-          pnpm run check-publish
+          pnpm run build
+          pnpm run check
           pnpm run check-mono
+          pnpm run test
