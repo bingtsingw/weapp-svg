@@ -47,11 +47,8 @@ describe('Generator', () => {
     expect(component.startsWith(GENERATED_FILE_HEADER)).toBe(true);
     expect(component).toContain('size = 32');
     expect(component).toContain('rgb(255,0,0)');
-    // px 渲染走 pxTransform，不再有运行时 state/effect
-    expect(component).toContain('const svgSize = Taro.pxTransform(size);');
-    expect(component).not.toContain('useSize');
-    expect(component).not.toContain('useState');
-    expect(component).not.toContain('useEffect');
+    expect(component).toContain("import { resolveIconSize } from '../size';");
+    expect(component).toContain('const svgSize = resolveIconSize(size);');
     // 组件变量名与 svgEncode 注入的占位符表达式严格对应
     expect(component).toContain("const isStr = typeof color === 'string';");
     expect(component).toContain('const colors = normalizeColor(color);');
@@ -62,7 +59,13 @@ describe('Generator', () => {
 
     const types = await readFile(join(output, 'types.ts'), 'utf8');
     expect(types.startsWith(GENERATED_FILE_HEADER)).toBe(true);
+    expect(types).toContain("export type IconSize = CSSProperties['width'];");
     expect(types).toContain('export interface IconProps');
+
+    const size = await readFile(join(output, 'size.ts'), 'utf8');
+    expect(size.startsWith(GENERATED_FILE_HEADER)).toBe(true);
+    expect(size).toContain("import Taro from '@tarojs/taro';");
+    expect(size).toContain("return typeof size === 'number' ? Taro.pxTransform(size) : size;");
   });
 
   it('clears parsed icon state before each generation run', async () => {
@@ -98,7 +101,7 @@ describe('Generator', () => {
       "export { Apple } from './icons/apple';",
       "export { Mango } from './icons/mango';",
       "export { Zebra } from './icons/zebra';",
-      "export type { IconProps } from './types';",
+      "export type { IconProps, IconSize } from './types';",
       '',
     ]);
   });

@@ -1,6 +1,6 @@
 import { View } from '@tarojs/components';
-import Taro from '@tarojs/taro';
 import { normalizeColor } from '../color';
+import { resolveIconSize } from '../size';
 import type { IconProps } from '../types';
 
 const quote = '"';
@@ -9,7 +9,7 @@ export const #componentName# = (props: IconProps) => {
   const { size = #size#, color, style = {}, className = '' } = props;
   const isStr = typeof color === 'string';
   const colors = normalizeColor(color);
-  const svgSize = Taro.pxTransform(size);
+  const svgSize = resolveIconSize(size);
 
   return (
     <View

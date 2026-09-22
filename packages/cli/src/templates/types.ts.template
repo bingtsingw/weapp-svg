@@ -1,7 +1,9 @@
 import type { CSSProperties } from 'react';
 
+export type IconSize = CSSProperties['width'];
+
 export interface IconProps {
-  size?: number;
+  size?: IconSize;
   color?: string | string[];
   style?: CSSProperties;
   className?: string;

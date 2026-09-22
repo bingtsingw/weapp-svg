@@ -1,0 +1,10 @@
+import Taro from '@tarojs/taro';
+import type { IconSize } from './types';
+
+/**
+ * Numeric sizes follow the host application's Taro pxTransform configuration.
+ * CSS lengths pass through unchanged.
+ */
+export const resolveIconSize = (size: IconSize): IconSize => {
+  return typeof size === 'number' ? Taro.pxTransform(size) : size;
+};

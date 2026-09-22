@@ -25,6 +25,7 @@ export class Generator {
 
     this.generateType();
     this.generateColor();
+    this.generateSize();
     this.generateIndex(this.generateIcons());
   }
 
@@ -43,6 +44,10 @@ export class Generator {
 
   private static generateColor() {
     this.generate('color.ts', Template.getColor());
+  }
+
+  private static generateSize() {
+    this.generate('size.ts', Template.getSize());
   }
 
   private static generateIcons(): IconExport[] {

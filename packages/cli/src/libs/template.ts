@@ -14,6 +14,10 @@ export class Template {
     return this.getTemplate('color.ts');
   }
 
+  public static getSize() {
+    return this.getTemplate('size.ts');
+  }
+
   public static getIcon() {
     return this.getTemplate('icon.tsx');
   }
