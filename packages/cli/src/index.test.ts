@@ -55,12 +55,13 @@ describe('wesvg CLI', () => {
       },
     );
 
-    await expect(readFile(join('icons', 'index.ts'), 'utf8')).resolves.toContain(
+    const output = 'icons';
+    await expect(readFile(join(output, 'index.ts'), 'utf8')).resolves.toContain(
       "export { ArrowRight } from './icons/arrow-right';",
     );
-    await expect(readFile(join('icons', 'index.ts'), 'utf8')).resolves.toContain(
+    await expect(readFile(join(output, 'index.ts'), 'utf8')).resolves.toContain(
       "export { ArrowLeft } from './icons/arrow-left';",
     );
-    await expect(readFile(join('icons', 'icons', 'arrow-right.tsx'), 'utf8')).resolves.toContain('size = 40');
+    await expect(readFile(join(output, 'icons', 'arrow-right.tsx'), 'utf8')).resolves.toContain('size = 40');
   });
 });

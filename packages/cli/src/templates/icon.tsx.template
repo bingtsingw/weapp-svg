@@ -1,18 +1,10 @@
-/* eslint-disable */
-// organize-imports-ignore
-// prettier-ignore
 import { View } from '@tarojs/components';
-// prettier-ignore
 import Taro from '@tarojs/taro';
-// prettier-ignore
 import { normalizeColor } from '../color';
-// prettier-ignore
 import type { IconProps } from '../types';
 
-// prettier-ignore
 const quote = '"';
 
-// prettier-ignore
 export const #componentName# = (props: IconProps) => {
   const { size = #size#, color, style = {}, className = '' } = props;
   const isStr = typeof color === 'string';
@@ -20,6 +12,15 @@ export const #componentName# = (props: IconProps) => {
   const svgSize = Taro.pxTransform(size);
 
   return (
-    <View style={{backgroundImage: `url(#svg#)`, backgroundSize: '100% 100%', width: svgSize, height: svgSize, ...style}} className={className} />
+    <View
+      style={{
+        backgroundImage: `url(#svg#)`,
+        backgroundSize: '100% 100%',
+        width: svgSize,
+        height: svgSize,
+        ...style,
+      }}
+      className={className}
+    />
   );
 };
