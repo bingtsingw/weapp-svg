@@ -14,6 +14,7 @@
     "test": "pnpm run build && vp test"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
     "@types/node": "26.6.2",
     "@xstools-dev/cli-toolkit": "0.4.0",
     "@xstools-dev/config-ts": "0.2.0",
