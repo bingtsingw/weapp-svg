@@ -1,10 +1,8 @@
 name: Release
 
-permissions:
-  contents: write # to create release (changesets/action)
-  issues: write # to post issue comments (changesets/action)
-  pull-requests: write # to create pull request (changesets/action)
-  id-token: write # to use OpenID Connect token for provenance (changesets/action)
+# Each job declares only the permissions it needs. In particular, the OIDC token
+# is available only while packages are being published.
+permissions: {}
 
 on:
   push:
@@ -14,19 +12,59 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
-    needs: ci
+  ci:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
+  select-mode:
+    needs: [ci]
     runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.select-mode.outputs.mode }}
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: bingtsingw/composite-actions/setup-node@e51185c8475a406df2d2d731f4d3ccbb2a8ba6c0
+      - id: select-mode
+        uses: changesets/action/select-mode@v2
+
+  version:
+    if: needs.select-mode.outputs.mode == 'version'
+    needs: [select-mode]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: bingtsingw/composite-actions/setup-node@e51185c8475a406df2d2d731f4d3ccbb2a8ba6c0
+      - uses: changesets/action/version@v2
+        with:
+          script: pnpm changeset version
+          commit-message: 'chore: version packages'
+
+  publish:
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs: [select-mode]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: bingtsingw/composite-actions/setup-node@e51185c8475a406df2d2d731f4d3ccbb2a8ba6c0
 
-      - uses: changesets/action@v2
-        with:
-          version-script: pnpm changeset version
-          publish-script: pnpm changeset publish
-          commit-message: 'chore: version packages'
-        env:
-          NPM_CONFIG_PROVENANCE: true
-          npm_config_registry: https://registry.npmjs.org
+      - run: pnpm run build
+
+      - uses: changesets/action/publish@v2
