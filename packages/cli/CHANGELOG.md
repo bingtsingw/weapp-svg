@@ -1,5 +1,11 @@
 # @wesvg/cli
 
+## 0.8.0
+
+### Minor Changes
+
+- [`42ec1ad`](https://github.com/bingtsingw/weapp-svg/commit/42ec1ad3f59ec831a66d950ff5b29f7f14c98d59) Thanks [@bingtsingw](https://github.com/bingtsingw)! - Isolate Taro size conversion in a shared generated adapter while preserving numeric `size` behavior and accepting explicit CSS lengths.
+
 ## 0.7.0
 
 ### Minor Changes
