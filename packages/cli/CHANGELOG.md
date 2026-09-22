@@ -1,5 +1,11 @@
 # @wesvg/cli
 
+## 0.7.0
+
+### Minor Changes
+
+- [`1a2b29b`](https://github.com/bingtsingw/weapp-svg/commit/1a2b29bc042b35738efde433e5ee7fb300093f2e) Thanks [@bingtsingw](https://github.com/bingtsingw)! - Mark every generated file with a standard `@generated` header and remove formatter and linter suppression comments.
+
 ## 0.6.0
 
 ### Minor Changes
